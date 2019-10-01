@@ -20,7 +20,7 @@ namespace MarsFramework
 
             }
             [Test]
-            public void ManageListingTest()
+            public void DeleteListingTest()
             {
                 ManageListings manage = new ManageListings(GlobalDefinitions.driver); //Object reference variable for Managelisting class
                     manage.Delete();

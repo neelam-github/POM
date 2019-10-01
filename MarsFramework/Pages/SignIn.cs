@@ -1,8 +1,10 @@
-﻿using MarsFramework.Global;
+﻿using MarsFramework.Config;
+using MarsFramework.Global;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace MarsFramework.Pages
@@ -16,9 +18,9 @@ namespace MarsFramework.Pages
 
         #region  Initialize Web Elements 
         //Finding the Sign Link
-        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Sign')]")]
-        private IWebElement SignIntab { get; set; }
-
+         [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Sign')]")]
+         private IWebElement SignIntab { get; set; }
+       
         // Finding the Email Field
         [FindsBy(How = How.Name, Using = "email")]
         private IWebElement Email { get; set; }

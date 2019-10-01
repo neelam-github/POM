@@ -5,7 +5,9 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace MarsFramework.Pages
@@ -56,25 +58,19 @@ namespace MarsFramework.Pages
 
         //Storing the table of available days
         //[FindsBy(How = How.XPath, Using = "//body/div/div/div[@id='service-listing-section']/div[@class='ui container']/div[@class='listing']/form[@class='ui form']/div[7]/div[2]/div[1]")]
-        IWebElement Days => driver.FindElement(By.XPath("//input[@tabindex ='0' and @index = '1']"));
+        IList <IWebElement> CheckBox => driver.FindElements(By.Name("Ävailable"));
+
         //Storing the start time
-        //[FindsBy(How = How.XPath, Using = "//div[3]/div[2]/input[1]")]
-        IWebElement StartTime => driver.FindElement(By.XPath("//*[@id='service - listing - section']/div[2]/div/form/div[7]/div[2]/div/div[3]/div[2]/input]"));
+        IWebElement StartTime => driver.FindElement(By.XPath("//input[@name ='StartTime' and @index = '1']"));        //Click on EndTime dropdown
         
-        //Click on EndTime dropdown
-        //[FindsBy(How = How.XPath, Using = "//div[3]/div[3]/input[1]")]
-        IWebElement EndTimeDropDown => driver.FindElement(By.XPath("//*[@id='service - listing - section']/div[2]/div/form/div[7]/div[2]/div/div[3]/div[3]/input]"));
+        IWebElement EndTime => driver.FindElement(By.XPath("//input[@name ='EndTime' and @index = '1']"));        //Click on EndTime dropdown
+
         //Click on Skill Trade option
-        [FindsBy(How = How.XPath, Using = "//form/div[8]/div[@class='twelve wide column']/div/div[@class = 'field']")]
-        private IWebElement SkillTradeOption { get; set; }
+        IWebElement skillTradeOption => driver.FindElement(By.XPath("//input[@name ='skillTrades' and @value = 'false']"));
 
         //Enter Skill Exchange
-        [FindsBy(How = How.XPath, Using = "//div[@class='form-wrapper']//input[@placeholder='Add new tag']")]
-        private IWebElement SkillExchange { get; set; }
+        IWebElement SkillExchange => driver.FindElement(By.XPath("//*[@id='service - listing - section']/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
 
-        //Enter the amount for Credit
-        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Amount']")]
-        private IWebElement CreditAmount { get; set; }
 
         //Click on Active/Hidden option
         [FindsBy(How = How.XPath, Using = "//form/div[10]/div[@class='twelve wide column']/div/div[@class = 'field']")]
@@ -126,20 +122,37 @@ namespace MarsFramework.Pages
             String dateVal1 =GlobalDefinitions.ExcelLib.ReadData(2, "Enddate");
             selectDateByJs(driver, EndDate, dateVal1);
 
-            //Store the available days
-            Days.Click();
-            
+            //Click on chackboxes,to select days
+
+            int size = CheckBox.Count;//This will tell number of checkboxes
+
+            for(int i=0; i<size; i++)//Start the loop for first checkbox to last checkbox
+            {
+
+                 String label = CheckBox.ElementAt(i).GetAttribute("label");
+                Console.WriteLine(label);
+                if (label == GlobalDefinitions.ExcelLib.ReadData(2, "Selectday"))
+                {
+                    CheckBox.ElementAt(i).Click();
+                    break;
+                }
+
+            }
+
             //Select start time
             StartTime.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Starttime"));
             //StartTimeDropDown.Click();
 
             //Select End time
-            EndTimeDropDown.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Endtime"));
-            //Enter the skill exchange
-            SkillExchange.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "SkillTrade"));
+            EndTime.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Endtime"));
 
-            //Enter the credit amount
-            CreditAmount.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Skill-Exchange"));
+            //Click on SkillTradeOptions
+            skillTradeOption.Click();
+            
+            //Enter the skill exchange
+            SkillExchange.Click();
+
+             
 
             //Click on Active/Hidden options
             ActiveOption.Click();

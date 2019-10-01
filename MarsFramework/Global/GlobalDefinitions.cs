@@ -1,6 +1,7 @@
 ﻿using Excel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using RelevantCodes.ExtentReports;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -152,5 +153,17 @@ namespace MarsFramework.Global
             }
         }
         #endregion
+        //ExtentReports
+        #region reports
+        public static ExtentTest test;
+        public static ExtentReports extent;
+        public static void ExtentReports()
+        {
+            extent = new ExtentReports(Base.ReportPath, true, DisplayOrder.NewestFirst);
+           // extent.LoadConfig(ConstantUtils.ReportXMLPath);
+        }
+
+        #endregion
     }
+
 }

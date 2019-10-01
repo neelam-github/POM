@@ -88,7 +88,7 @@ namespace MarsFramework.Config {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory.GetCurrentDirectory() + @&quot;\MarsFramework\TestReports\MarsReports.html&quot;;.
+        ///   Looks up a localized string similar to C:\Users\Neelam\Documents\CompetitionTask\marsframework-master\MarsFramework\TestReports\MarsReports.html&quot;.
         /// </summary>
         internal static string ReportPath {
             get {
@@ -97,7 +97,7 @@ namespace MarsFramework.Config {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory.GetCurrentDirectory() + @&quot;\MarsFramework\Config\XMLFile.xml&quot;;.
+        ///   Looks up a localized string similar to C:\Users\Neelam\Documents\CompetitionTask\marsframework-master\MarsFramework\Config\XMLFile.xml&quot;.
         /// </summary>
         internal static string ReportXMLPath {
             get {
@@ -106,11 +106,20 @@ namespace MarsFramework.Config {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory.GetCurrentDirectory() + @&quot;\MarsFramework\TestReports\Screenshots&quot;;.
+        ///   Looks up a localized string similar to C:\Users\Neelam\Documents\CompetitionTask\marsframework-master\MarsFramework\TestReports\Screenshots.
         /// </summary>
         internal static string ScreenShotPath {
             get {
                 return ResourceManager.GetString("ScreenShotPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
             }
         }
     }

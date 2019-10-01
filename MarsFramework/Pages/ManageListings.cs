@@ -22,8 +22,8 @@ namespace MarsFramework.Pages
         [FindsBy(How = How.XPath, Using = "(//i[@class='eye icon'])[1]")]
         IWebElement view => driver.FindElement(By.XPath("//i[@class ='eye icon']"));
         //Delete the listing
-        IWebElement delete => driver.FindElement(By.XPath("//*[@id='listing - management - section']/div[2]/div[1]/table/tbody/tr/td[8]/i[3]"));
-
+        //IWebElement delete => driver.FindElement(By.XPath("//*[@id='listing - management - section']/div[2]/div[1]/table/tbody/tr/td[8]/i[3]"));
+        IWebElement delete => driver.FindElement(By.XPath("//i[@class='remove icon']"));
         //Edit the listing
         [FindsBy(How = How.XPath, Using = "(//i[@class='outline write icon'])[1]")]
         private IWebElement edit { get; set; }
@@ -67,12 +67,34 @@ namespace MarsFramework.Pages
             if (Title == "Selenium" & Action == "Yes")
             {
                 delete.Click();
-                driver.SwitchTo().Alert().Accept();
+                Boolean presentFlag = false;
+
+                try
+                {
+
+                    // Check the presence of alert
+                    IAlert alert = driver.SwitchTo().Alert();
+                    // Alert present; set the flag
+                    presentFlag = true;
+                    // if present consume the alert
+                    alert.Dismiss();
+
+                }
+                catch (NoAlertPresentException ex)
+                {
+                    // Alert not present
+                    Console.WriteLine("Alert not present");
+                }
+
+                
+
             }
+            // driver.SwitchTo().Alert().Dismiss();
+        }
 
         }
     }
-}
+
            
     
 
